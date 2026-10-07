@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portafolio Virtual de Aprendizaje</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                400: '#38bdf8',
+                500: '#0ea5e9',
+                600: '#0284c7',
+                900: '#082f49'
+              }
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <style>
+      html, body {
+        height: 100%;
+      }
+
+      body {
+        background: #0b0b0f;
+        color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .tab-content {
+        animation: fadeIn 0.25s ease;
+      }
+
+      .poster-tile {
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        box-shadow: inset 0 0 40px rgba(0,0,0,0.45);
+      }
+
+      .poster-tile::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.6));
+        border-radius: inherit;
+      }
+
+      .trending-rail {
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+      }
+
+      .trending-rail::-webkit-scrollbar {
+        display: none;
+      }
+
+      .trending-card {
+        flex: 0 0 clamp(150px, 17vw, 220px);
+        aspect-ratio: 0.7;
+      }
+
+      .trending-number {
+        color: #050505;
+        font-size: clamp(6rem, 12vw, 9rem);
+        line-height: 0.8;
+        -webkit-text-stroke: 2px #e5e5e5;
+        paint-order: stroke fill;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+      }
+
+      @media (max-width: 640px) {
+        .trending-number {
+          font-size: 6rem;
+        }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="courseSelector" class="fixed inset-0 z-[100] overflow-y-auto bg-black text-white">
+      <header class="sticky top-0 z-20 flex items-center justify-between bg-black/95 px-5 py-4 sm:px-10">
+        <div class="text-3xl font-black tracking-tighter text-red-600 sm:text-4xl">NETFLIX</div>
+        <div class="flex items-center gap-3 text-sm">
+          <span class="hidden text-slate-300 sm:inline">Portafolio académico · 2026</span>
+          <span class="flex h-9 w-9 items-center justify-center rounded bg-red-600 font-bold">R</span>
+        </div>
+      </header>
+
+      <main class="mx-auto max-w-[1600px] px-5 pb-12 sm:px-10">
+        <section class="pt-2 sm:pt-4" aria-labelledby="trendsTitle">
+          <div class="mb-5 flex items-center justify-between">
+            <h1 id="trendsTitle" class="text-2xl font-bold sm:text-3xl">Tendencias</h1>
+            <div class="flex gap-2">
+              <button id="trendsPrev" class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl hover:bg-white/20" aria-label="Desplazar tendencias a la izquierda">‹</button>
+              <button id="trendsNext" class="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl hover:bg-white/20" aria-label="Desplazar tendencias a la derecha">›</button>
+            </div>
+          </div>
+
+          <div id="trendingRail" class="trending-rail flex gap-8 overflow-x-auto overflow-y-hidden px-5 pb-5 pt-2">
+            <button class="trending-card relative shrink-0 overflow-visible text-left transition duration-200 hover:scale-105" data-tab="intro" aria-label="Abrir Introducción">
+              <span class="absolute -bottom-1 -left-5 z-10 trending-number">1</span>
+              <span class="absolute inset-0 overflow-hidden rounded-lg bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=700&q=85')"></span>
+              <span class="absolute inset-0 rounded-lg bg-gradient-to-t from-black via-black/10 to-black/20"></span>
+              <span class="absolute left-3 top-3 z-10 text-xl font-black text-red-600">N</span>
+              <span class="absolute bottom-4 left-4 z-10 max-w-[75%] text-lg font-black leading-tight">Introducción</span>
+            </button>
+            <button class="trending-card relative shrink-0 overflow-visible text-left transition duration-200 hover:scale-105" data-tab="unidad1" aria-label="Abrir Unidad I">
+              <span class="absolute -bottom-1 -left-5 z-10 trending-number">2</span>
+              <span class="absolute inset-0 overflow-hidden rounded-lg bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=700&q=85')"></span>
+              <span class="absolute inset-0 rounded-lg bg-gradient-to-t from-black via-black/10 to-black/20"></span>
+              <span class="absolute left-3 top-3 z-10 text-xl font-black text-red-600">N</span>
+              <span class="absolute bottom-4 left-4 z-10 max-w-[75%] text-lg font-black leading-tight">Unidad I</span>
+            </button>
+            <button class="trending-card relative shrink-0 overflow-visible text-left transition duration-200 hover:scale-105" data-tab="unidad2" aria-label="Abrir Unidad II">
+              <span class="absolute -bottom-1 -left-5 z-10 trending-number">3</span>
+              <span class="absolute inset-0 overflow-hidden rounded-lg bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=700&q=85')"></span>
+              <span class="absolute inset-0 rounded-lg bg-gradient-to-t from-black via-black/10 to-black/20"></span>
+              <span class="absolute left-3 top-3 z-10 text-xl font-black text-red-600">N</span>
+              <span class="absolute bottom-4 left-4 z-10 max-w-[75%] text-lg font-black leading-tight">Unidad II</span>
+            </button>
+            <button class="trending-card relative shrink-0 overflow-visible text-left transition duration-200 hover:scale-105" data-tab="unidad3" aria-label="Abrir Unidad III">
+              <span class="absolute -bottom-1 -left-5 z-10 trending-number">4</span>
+              <span class="absolute inset-0 overflow-hidden rounded-lg bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=85')"></span>
+              <span class="absolute inset-0 rounded-lg bg-gradient-to-t from-black via-black/10 to-black/20"></span>
+              <span class="absolute left-3 top-3 z-10 text-xl font-black text-red-600">N</span>
+              <span class="absolute bottom-4 left-4 z-10 max-w-[75%] text-lg font-black leading-tight">Unidad III</span>
+            </button>
+            <button class="trending-card relative shrink-0 overflow-visible text-left transition duration-200 hover:scale-105" data-tab="conclusiones" aria-label="Abrir Conclusiones">
+              <span class="absolute -bottom-1 -left-5 z-10 trending-number">5</span>
+              <span class="absolute inset-0 overflow-hidden rounded-lg bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=700&q=85')"></span>
+              <span class="absolute inset-0 rounded-lg bg-gradient-to-t from-black via-black/10 to-black/20"></span>
+              <span class="absolute left-3 top-3 z-10 text-xl font-black text-red-600">N</span>
+              <span class="absolute bottom-4 left-4 z-10 max-w-[75%] text-lg font-black leading-tight">Conclusiones</span>
+            </button>
+            <button class="trending-card relative shrink-0 overflow-visible text-left transition duration-200 hover:scale-105" data-tab="opinion" aria-label="Abrir Opinión personal">
+              <span class="absolute -bottom-1 -left-5 z-10 trending-number">6</span>
+              <span class="absolute inset-0 overflow-hidden rounded-lg bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=700&q=85')"></span>
+              <span class="absolute inset-0 rounded-lg bg-gradient-to-t from-black via-black/10 to-black/20"></span>
+              <span class="absolute left-3 top-3 z-10 text-xl font-black text-red-600">N</span>
+              <span class="absolute bottom-4 left-4 z-10 max-w-[75%] text-lg font-black leading-tight">Opinión personal</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="mt-10" aria-labelledby="benefitsTitle">
+          <h2 id="benefitsTitle" class="mb-5 text-2xl font-bold sm:text-3xl">Más motivos para explorar</h2>
+          <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <article class="min-h-56 rounded-2xl bg-gradient-to-br from-[#202449] to-[#211322] p-5">
+              <h3 class="text-xl font-bold">Investiga con criterio</h3>
+              <p class="mt-4 text-base leading-6 text-slate-300">Aprende a encontrar, evaluar y citar fuentes académicas confiables.</p>
+            </article>
+            <article class="min-h-56 rounded-2xl bg-gradient-to-br from-[#202449] to-[#211322] p-5">
+              <h3 class="text-xl font-bold">Argumenta con evidencias</h3>
+              <p class="mt-4 text-base leading-6 text-slate-300">Construye ideas claras y defiende una postura con fundamentos.</p>
+            </article>
+            <article class="min-h-56 rounded-2xl bg-gradient-to-br from-[#202449] to-[#211322] p-5">
+              <h3 class="text-xl font-bold">Comunica donde quieras</h3>
+              <p class="mt-4 text-base leading-6 text-slate-300">Practica la escritura académica, el debate y la redacción profesional.</p>
+            </article>
+            <article class="min-h-56 rounded-2xl bg-gradient-to-br from-[#202449] to-[#211322] p-5">
+              <h3 class="text-xl font-bold">Crece a tu ritmo</h3>
+              <p class="mt-4 text-base leading-6 text-slate-300">Recorre las evidencias y reflexiones de todo el semestre 2026.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="mt-10" aria-labelledby="courseTitle">
+          <h2 id="courseTitle" class="mb-4 text-xl font-bold">Cursos</h2>
+          <div class="grid gap-3 sm:grid-cols-3">
+            <button class="course-card rounded-lg border border-red-600/70 bg-[#181818] p-4 text-left transition hover:bg-[#252525]" data-course="redaccion">
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Disponible</span>
+              <span class="mt-2 block text-lg font-bold">Redacción Académica</span>
+            </button>
+            <div class="course-card-locked rounded-lg border border-white/10 bg-[#181818] p-4 opacity-60" data-course="filosofia">
+              <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Próximamente</span>
+              <span class="mt-2 block text-lg font-bold">Filosofía</span>
+            </div>
+            <div class="course-card-locked rounded-lg border border-white/10 bg-[#181818] p-4 opacity-60" data-course="democracia">
+              <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Próximamente</span>
+              <span class="mt-2 block text-lg font-bold">Democracia</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="mainApp" class="hidden">
+      <header class="sticky top-0 z-50 border-b border-white/10 bg-[#0b0b0f]/85 backdrop-blur-md">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+          <div class="flex items-center gap-4">
+            <div class="flex h-9 w-9 items-center justify-center rounded-md bg-red-600 text-xl font-black">N</div>
+            <nav class="hidden items-center gap-6 text-sm text-slate-200 md:flex">
+              <span id="navCourseMain" class="font-semibold text-white">Redacción Académica</span>
+              <span class="text-slate-400">Filosofía</span>
+              <span class="text-slate-400">Democracia</span>
+            </nav>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="themeToggle" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-amber-300 transition hover:bg-white/20" title="Cambiar tema">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-red-700 text-sm font-bold text-white">U</div>
+          </div>
+        </div>
+      </header>
+
+      <main class="mx-auto max-w-7xl px-4 pb-12 sm:px-6">
+      <section class="relative mt-5 overflow-hidden rounded-[28px] border border-white/10 bg-slate-900 shadow-2xl">
+        <img id="heroImage" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80" alt="Portafolio de redacción" class="h-[440px] w-full object-cover opacity-80" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/20"></div>
+        <div class="absolute inset-0 flex items-end">
+          <div class="max-w-3xl p-6 sm:p-8 lg:p-10">
+            <div class="mb-3 inline-flex items-center rounded-full border border-red-500/40 bg-red-500/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-300">
+              Portafolio virtual de aprendizaje
+            </div>
+            <h1 id="heroTitle" class="text-4xl font-black leading-none sm:text-5xl lg:text-6xl">Redacción Académica</h1>
+            <p id="heroSubtitle" class="mt-4 max-w-2xl text-sm text-slate-200 sm:text-base">
+              A continuación, se presenta el portafolio virtual con los temas abordados durante este ciclo académico.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <button onclick="showTab('intro')" class="rounded-md bg-red-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-500">Ver portafolio</button>
+              <button onclick="showTab('opinion')" class="rounded-md border border-white/30 bg-black/30 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10">Opinión personal</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div class="rounded-2xl border border-white/10 bg-[#121217] p-4 shadow-lg shadow-black/20">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Asignatura</p>
+          <p id="courseNameCard" class="mt-3 text-3xl font-black text-red-400">Redacción</p>
+          <p class="mt-2 text-sm text-slate-300">Redacción Académica</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-[#121217] p-4 shadow-lg shadow-black/20">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Tema</p>
+          <p id="courseTheme" class="mt-3 text-xl font-black text-sky-400">IA y trabajo</p>
+          <p class="mt-2 text-sm text-slate-300">Perú y transformación laboral</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-[#121217] p-4 shadow-lg shadow-black/20">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Semestre</p>
+          <p class="mt-3 text-xl font-black text-emerald-400">2026</p>
+          <p class="mt-2 text-sm text-slate-300">Ciclo académico actual</p>
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="text-2xl font-bold">Explora el portafolio</h2>
+          <div class="hidden items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-slate-400 sm:flex">
+            <span class="inline-block h-2 w-2 rounded-full bg-red-500"></span> Serie académica
+          </div>
+        </div>
+
+        <div class="mb-5 flex flex-wrap gap-2">
+          <button onclick="showTab('intro')" id="btn-intro" class="tab-btn rounded-full border border-red-500/60 bg-red-600 px-4 py-2 text-xs font-semibold text-white">Introducción</button>
+          <button onclick="showTab('unidad1')" id="btn-unidad1" class="tab-btn rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 hover:border-white/20">Unidad I</button>
+          <button onclick="showTab('unidad2')" id="btn-unidad2" class="tab-btn rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 hover:border-white/20">Unidad II</button>
+          <button onclick="showTab('unidad3')" id="btn-unidad3" class="tab-btn rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 hover:border-white/20">Unidad III</button>
+          <button onclick="showTab('conclusiones')" id="btn-conclusiones" class="tab-btn rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 hover:border-white/20">Conclusiones</button>
+          <button onclick="showTab('opinion')" id="btn-opinion" class="tab-btn rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 hover:border-white/20">Opinión personal</button>
+        </div>
+      </section>
+
+      <section class="mt-2">
+        <article id="intro" class="tab-content block overflow-hidden rounded-[26px] border border-white/10 bg-[#111318]">
+          <div class="grid md:grid-cols-[1.15fr_0.85fr]">
+            <div class="p-6 sm:p-8">
+              <div class="mb-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-red-300">Introducción</div>
+              <h3 class="text-3xl font-black text-white">Introducción al ciclo académico</h3>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                El presente portafolio virtual recopila, organiza y reflexiona sobre el proceso de aprendizaje desarrollado a lo largo del ciclo académico en la asignatura de <strong class="text-white">Redacción Académica</strong>. El propósito central de este curso ha sido fortalecer la competencia comunicativa integral, guiando el paso desde la comprensión teórica de la redacción formal hasta la planificación, investigación, textualización y sustentación oral de un ensayo argumentativo de impacto social y profesional.
+              </p>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                A lo largo del semestre, las expectativas estuvieron enfocadas en perder el miedo a la investigación universitaria, aprender a delimitar temas complejos sin perderse en el exceso de información, discernir rigurosamente las fuentes confiables de las que no lo son y dominar tanto el registro escrito como la expresión oral académica. La integración de estos aprendizajes no solo responde al cumplimiento de una exigencia curricular, sino a la necesidad fundamental de desarrollar un pensamiento crítico, analítico y ético indispensable para el ejercicio profesional.
+              </p>
+            </div>
+            <div class="relative min-h-[300px]">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85" alt="Aprendizaje académico" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-l from-[#111318] via-[#111318]/10 to-transparent"></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="unidad1" class="tab-content hidden overflow-hidden rounded-[26px] border border-white/10 bg-[#111318]">
+          <div class="grid md:grid-cols-[1.15fr_0.85fr]">
+            <div class="p-6 sm:p-8">
+              <div class="mb-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-amber-300">Unidad I</div>
+              <h3 class="text-3xl font-black text-white">Fundamentos de la Redacción Académica, Investigación y Delimitación Temática</h3>
+
+              <div class="mt-5 space-y-4 text-sm text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">Síntesis teórica y temas abordados:</strong>
+                  <ul class="mt-3 list-disc space-y-2 pl-5 text-slate-300">
+                    <li>Redacción y Redacción Académica: análisis de su etimología, definición, características esenciales y requisitos formales.</li>
+                    <li>El texto argumentativo: definición, estructura básica e elementos clave.</li>
+                    <li>Elección y delimitación del tema: focalización, tesis firme y sustentable.</li>
+                    <li>Técnicas de análisis y lectura académica: identificación de idea principal, argumentos y conclusiones.</li>
+                    <li>Búsqueda y clasificación de fuentes confiables: matriz de palabras clave y de recojo de fuentes.</li>
+                  </ul>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">Tema de aplicación práctica:</strong>
+                  <p class="mt-2 text-slate-200">“El impacto de la inteligencia artificial, las oportunidades laborales y la transformación de los puestos de trabajo en el Perú durante los últimos años.”</p>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">Evidencias clave desarrolladas:</strong>
+                  <ol class="mt-3 list-decimal space-y-2 pl-5 text-slate-300">
+                    <li>Guía de lectura y clasificación de argumentos.</li>
+                    <li>Matriz de palabras clave sobre IA y mercado laboral peruano.</li>
+                    <li>Matriz de recojo de fuentes académicas en tabla estructurada.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <div class="relative min-h-[360px]">
+              <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=85" alt="Investigación y fuentes" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-l from-[#111318] via-[#111318]/10 to-transparent"></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="unidad2" class="tab-content hidden overflow-hidden rounded-[26px] border border-white/10 bg-[#111318]">
+          <div class="grid md:grid-cols-[1.15fr_0.85fr]">
+            <div class="p-6 sm:p-8">
+              <div class="mb-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-sky-300">Unidad II</div>
+              <h3 class="text-3xl font-black text-white">Planificación, Estrategias Discursivas y Textualización del Ensayo Argumentativo</h3>
+
+              <div class="mt-5 space-y-4 text-sm text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">Síntesis teórica y temas abordados:</strong>
+                  <ul class="mt-3 list-disc space-y-2 pl-5 text-slate-300">
+                    <li>Esquema numérico de planificación: introducción, cuerpo argumentativo y conclusión.</li>
+                    <li>Modalizadores discursivos: marcas lingüísticas para expresar postura y certeza.</li>
+                    <li>Estrategias discursivas: interrogantes de enganche, causa-hecho-solución y respaldo en fuentes.</li>
+                    <li>Normas APA: citas textuales, parafraseadas y lista de referencias.</li>
+                    <li>Textualización: primer borrador del ensayo argumentativo.</li>
+                  </ul>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">Evidencias clave desarrolladas:</strong>
+                  <ol class="mt-3 list-decimal space-y-2 pl-5 text-slate-300">
+                    <li>Esquema de planificación numerado del ensayo argumentativo.</li>
+                    <li>Matriz de aplicación de estrategias y modalizadores discursivos.</li>
+                    <li>Primer borrador del ensayo argumentativo con citas en formato APA.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <div class="relative min-h-[360px]">
+              <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1200&q=85" alt="Planificación del ensayo" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-l from-[#111318] via-[#111318]/10 to-transparent"></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="unidad3" class="tab-content hidden overflow-hidden rounded-[26px] border border-white/10 bg-[#111318]">
+          <div class="grid md:grid-cols-[1.15fr_0.85fr]">
+            <div class="p-6 sm:p-8">
+              <div class="mb-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-300">Unidad III</div>
+              <h3 class="text-3xl font-black text-white">Discurso Oral (Debate Académico) y Redacción Administrativa</h3>
+
+              <div class="mt-5 space-y-4 text-sm text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">Síntesis teórica y temas abordados:</strong>
+                  <ul class="mt-3 list-disc space-y-2 pl-5 text-slate-300">
+                    <li>Ejecución del discurso y debate académico: dos participantes a favor, dos en contra y un moderador.</li>
+                    <li>Redacción documentaria y administrativa: acta, oficio, memorial y solicitud.</li>
+                    <li>Uso del registro formal en la comunicación institucional y profesional.</li>
+                  </ul>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">Evidencias clave desarrolladas:</strong>
+                  <ol class="mt-3 list-decimal space-y-2 pl-5 text-slate-300">
+                    <li>Participación y desempeño en el debate académico presencial/virtual.</li>
+                    <li>Modelos redactados de documentos administrativos.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <div class="relative min-h-[360px]">
+              <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=85" alt="Debate académico" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-l from-[#111318] via-[#111318]/10 to-transparent"></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="conclusiones" class="tab-content hidden overflow-hidden rounded-[26px] border border-white/10 bg-[#111318]">
+          <div class="grid md:grid-cols-[1.15fr_0.85fr]">
+            <div class="p-6 sm:p-8">
+              <div class="mb-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-violet-300">Conclusiones</div>
+              <h3 class="text-3xl font-black text-white">Conclusiones generales del ciclo académico</h3>
+
+              <div class="mt-5 space-y-4 text-sm text-slate-300">
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">1. Evolución en la competencia investigativa:</strong>
+                  <p class="mt-2">El ciclo permitió pasar de una búsqueda intuitiva de información a un método sistemático de selección, delimitación y fichaje de fuentes confiables, comprendiendo el valor ético y académico de las normas APA.</p>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">2. Dominio de la estructuración argumentativa:</strong>
+                  <p class="mt-2">La elaboración del esquema numerado y la textualización del ensayo demostraron que la claridad de un texto depende de una planificación previa rigurosa, donde las estrategias discursivas y los modalizadores le otorgan fuerza y coherencia al mensaje.</p>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                  <strong class="text-white">3. Versatilidad comunicativa:</strong>
+                  <p class="mt-2">El contraste entre la sustentación en el debate académico y la elaboración de documentos administrativos dotó al aprendizaje de un carácter integral, preparándome para el debate de ideas y para la gestión documentaria institucional.</p>
+                </div>
+              </div>
+            </div>
+            <div class="relative min-h-[360px]">
+              <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=85" alt="Conclusiones finales" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-l from-[#111318] via-[#111318]/10 to-transparent"></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="opinion" class="tab-content hidden overflow-hidden rounded-[26px] border border-white/10 bg-[#111318]">
+          <div class="grid md:grid-cols-[1.1fr_0.9fr]">
+            <div class="p-6 sm:p-8">
+              <div class="mb-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-pink-300">Opinión personal</div>
+              <h3 class="text-3xl font-black text-white">Mi reflexión final</h3>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                Este curso me permitió comprender que la redacción académica no es solo una habilidad de escritura, sino una competencia integral que combina análisis crítico, investigación, pensamiento lógico y capacidad de expresión formal. A lo largo del ciclo, aprendí a organizar mejor mis ideas, a distinguir información confiable de información superficial y a desarrollar una postura argumentativa sólida basada en evidencias. Además, la práctica del debate y la redacción administrativa me mostró que la comunicación académica y profesional se construye también con respeto, claridad y responsabilidad.
+              </p>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                Más allá de cumplir una asignatura, este proceso me ayudó a crecer como estudiante y como futuro profesional. Ahora entiendo que redactar bien no solamente implica escribir con corrección, sino comunicar ideas con impacto, criterio y propósito. Este aprendizaje será fundamental en mi formación universitaria y en mi desempeño en el ámbito laboral, donde la argumentación clara y la expresión responsable son herramientas decisivas para influir, liderar y aportar valor.
+              </p>
+            </div>
+            <div class="relative min-h-[320px]">
+              <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=85" alt="Opinión personal" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-l from-[#111318] via-[#111318]/10 to-transparent"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 bg-[#0b0b0f] py-5 text-center text-xs text-slate-400">
+      Portafolio Virtual elaborado para Redacción Académica © 2026 - Universidad Nacional de Cajamarca
+    </footer>
+
+    <script>
+      function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('border-red-500/60', 'bg-red-600', 'text-white');
+          btn.classList.add('border-white/10', 'bg-white/5', 'text-slate-200');
+        });
+
+        const target = document.getElementById(tabId);
+        if (target) {
+          target.classList.remove('hidden');
+        }
+
+        const activeBtn = document.getElementById('btn-' + tabId);
+        if (activeBtn) {
+          activeBtn.classList.remove('border-white/10', 'bg-white/5', 'text-slate-200');
+          activeBtn.classList.add('border-red-500/60', 'bg-red-600', 'text-white');
+        }
+      }
+
+      function enterCourse(tabId = 'intro') {
+        const chosen = courseMap.redaccion;
+        heroTitle.textContent = chosen.title;
+        heroSubtitle.textContent = chosen.subtitle;
+        courseNameCard.textContent = chosen.short;
+        courseTheme.textContent = chosen.theme;
+        navCourseMain.textContent = chosen.title;
+        heroImage.src = chosen.image;
+        selector.classList.add('hidden');
+        mainApp.classList.remove('hidden');
+        showTab(tabId);
+      }
+
+      const courseMap = {
+        redaccion: {
+          title: 'Redacción Académica',
+          short: 'Redacción',
+          subtitle: 'A continuación, se presenta el portafolio virtual con los temas abordados durante este ciclo académico.',
+          theme: 'IA y trabajo',
+          image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80'
+        },
+        filosofia: {
+          title: 'Filosofía',
+          short: 'Filosofía',
+          subtitle: 'Reflexión crítica sobre la ética, el conocimiento y la vida en sociedad.',
+          theme: 'Pensamiento crítico',
+          image: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1600&q=80'
+        },
+        democracia: {
+          title: 'Democracia',
+          short: 'Democracia',
+          subtitle: 'Participación ciudadana, derechos humanos y construcción de una sociedad más justa.',
+          theme: 'Ciudadanía',
+          image: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1600&q=80'
+        }
+      };
+
+      const selector = document.getElementById('courseSelector');
+      const mainApp = document.getElementById('mainApp');
+      const heroTitle = document.getElementById('heroTitle');
+      const heroSubtitle = document.getElementById('heroSubtitle');
+      const courseNameCard = document.getElementById('courseNameCard');
+      const courseTheme = document.getElementById('courseTheme');
+      const navCourseMain = document.getElementById('navCourseMain');
+      const heroImage = document.getElementById('heroImage');
+
+      document.querySelectorAll('.course-card').forEach(card => {
+        card.addEventListener('click', () => {
+          if (card.dataset.course !== 'redaccion') return;
+          enterCourse();
+        });
+      });
+
+      document.querySelectorAll('.trending-card').forEach(card => {
+        card.addEventListener('click', () => enterCourse(card.dataset.tab));
+      });
+
+      const trendingRail = document.getElementById('trendingRail');
+      document.getElementById('trendsPrev').addEventListener('click', () => {
+        trendingRail.scrollBy({ left: -trendingRail.clientWidth * 0.8, behavior: 'smooth' });
+      });
+      document.getElementById('trendsNext').addEventListener('click', () => {
+        trendingRail.scrollBy({ left: trendingRail.clientWidth * 0.8, behavior: 'smooth' });
+      });
+
+      document.querySelectorAll('.course-card-locked').forEach(card => {
+        card.addEventListener('click', () => {
+          card.style.transform = 'scale(0.98)';
+          setTimeout(() => card.style.transform = '', 120);
+        });
+      });
+
+      const themeBtn = document.getElementById('themeToggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const current = document.body.style.background;
+          document.body.style.background = current === 'rgb(11, 11, 15)' || current === '' ? '#f3f4f6' : '#0b0b0f';
+          document.body.style.color = document.body.style.background === '#f3f4f6' ? '#111827' : '#ffffff';
+          const icon = themeBtn.querySelector('i');
+          icon.classList.toggle('fa-moon');
+          icon.classList.toggle('fa-sun');
+        });
+      }
+    </script>
+  </div>
+  </body>
+</html>
